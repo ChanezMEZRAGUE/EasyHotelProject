@@ -1,0 +1,156 @@
+:host {
+  display: block;
+  min-height: 100vh;
+}
+
+.app-header {
+  border-bottom: none;
+}
+
+.app-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: #141a32;
+  color: #f8f5f0;
+  box-shadow: 0 10px 24px rgba(8, 12, 18, 0.18);
+}
+
+.brand-block {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand {
+  font-family: "DM Serif Display", "Times New Roman", serif;
+  font-size: 1.8rem;
+  letter-spacing: 0.12rem;
+  text-transform: uppercase;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.brand-tagline {
+  display: none;
+}
+
+.spacer {
+  flex: 1;
+}
+
+.nav-links a {
+  margin-right: 0.5rem;
+  font-weight: 500;
+  color: #ffffff;
+}
+
+.auth-links {
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+}
+
+.auth-links a,
+.auth-links button {
+  color: #ffffff;
+}
+
+.account-button {
+  color: #ffffff;
+}
+
+.account-card {
+  padding: 0.75rem 1rem 0.5rem;
+  max-width: 220px;
+}
+
+.account-name {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #141a32;
+}
+
+.account-email,
+.account-phone {
+  font-size: 0.85rem;
+  color: #4b5a6b;
+}
+
+.lang-switch {
+  display: flex;
+  align-items: center;
+  margin-right: 1rem;
+}
+
+.lang-switch .flag-img {
+  width: 12px;
+  height: 8px;
+  border-radius: 2px;
+  object-fit: cover;
+  margin-left: 0.4rem;
+}
+
+.lang-switch .lang-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.6rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  font-weight: 600;
+  letter-spacing: 0.04rem;
+}
+
+.lang-switch .lang-code {
+  font-size: 0.75rem;
+}
+
+.lang-switch .lang-pill mat-icon {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+  color: #ffffff;
+}
+
+.lang-switch .lang-text {
+  font-weight: 600;
+  margin-left: 0.5rem;
+}
+
+.lang-switch .mat-mdc-menu-item {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.4rem;
+}
+
+.app-shell {
+  padding: 0 0 3rem;
+}
+
+.app-footer {
+  padding: 1.2rem 1.5rem 2rem;
+  color: #5a6b7a;
+  font-size: 0.85rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.app-footer strong {
+  margin-right: 0.5rem;
+}
+
+@media (max-width: 900px) {
+  .app-toolbar {
+    flex-wrap: wrap;
+    row-gap: 0.5rem;
+  }
+
+  .nav-links {
+    width: 100%;
+  }
+}

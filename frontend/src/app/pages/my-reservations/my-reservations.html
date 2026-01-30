@@ -1,0 +1,39 @@
+﻿<section class="page">
+  <div class="page-header">
+    <h1 class="page-title">Mes réservations</h1>
+    <p class="section-subtitle">Consultez, modifiez ou annulez vos séjours.</p>
+  </div>
+
+  <div class="reservation-grid">
+    <mat-card *ngFor="let reservation of reservations" class="reservation-card">
+      <div class="reservation-top">
+        <div>
+          <div class="reservation-hotel">{{ reservation.hotelName }}</div>
+          <div class="reservation-dates">{{ reservation.dates }}</div>
+        </div>
+        <span class="reservation-status" [class.cancelled]="reservation.status === 'Annulée'">
+          {{ reservation.status }}
+        </span>
+      </div>
+
+      <div class="reservation-info">
+        <div class="info-item">
+          <span class="info-label">Mode de paiement</span>
+          <span class="info-value">{{ reservation.payment }}</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Total</span>
+          <span class="info-value">{{ reservation.total }} EUR</span>
+        </div>
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <div class="actions-row">
+        <button mat-stroked-button>Modifier</button>
+        <button mat-stroked-button color="warn">Annuler</button>
+        <button mat-flat-button color="primary">Payer</button>
+      </div>
+    </mat-card>
+  </div>
+</section>

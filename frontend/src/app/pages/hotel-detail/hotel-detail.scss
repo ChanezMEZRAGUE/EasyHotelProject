@@ -1,0 +1,147 @@
+.hotel-hero {
+  position: relative;
+  padding: 3.5rem 3rem 3rem;
+  color: #ffffff;
+  background-size: cover;
+  background-position: center;
+
+}
+
+.hotel-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(12, 18, 30, 0.55), rgba(12, 18, 30, 0.15));
+}
+
+.hotel-hero-content {
+  position: relative;
+  z-index: 1;
+}
+
+.hotel-hero .page-title,
+.hotel-hero .section-subtitle {
+  color: #ffffff;
+  text-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+}
+
+.hotel-page {
+  padding: 2rem 3rem 2.5rem;
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.6rem;
+  align-items: stretch;
+}
+
+.room-card,
+.reservation-card {
+  border-radius: 20px;
+  box-shadow: 0 14px 30px rgba(9, 12, 28, 0.12);
+  min-height: 420px;
+}
+
+.room-card mat-card-title,
+.reservation-card mat-card-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #111b2d;
+  margin: 0;
+}
+
+.card-title-row {
+  display: grid;
+  grid-template-columns: 110px 1fr 110px;
+  align-items: center;
+  margin-bottom: 0.6rem;
+}
+
+.reservation-title {
+  grid-template-columns: 1fr;
+  margin-bottom: 0.8rem;
+}
+
+.title-spacer {
+  width: 110px;
+  height: 1px;
+}
+
+.room-list {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.room-item {
+  display: grid;
+  grid-template-columns: 110px 1fr auto;
+  align-items: center;
+  padding: 0.9rem 0;
+  border-bottom: 1px solid rgba(15, 20, 28, 0.08);
+  gap: 1rem;
+}
+
+.room-item:last-child {
+  border-bottom: none;
+}
+
+.room-thumb {
+  width: 110px;
+  height: 80px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(22, 35, 70, 0.25), rgba(26, 143, 143, 0.25));
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+}
+
+.room-name {
+  font-weight: 600;
+  color: #1a2b5c;
+}
+
+.room-meta {
+  color: #5a6b7a;
+  font-size: 0.9rem;
+  margin-top: 0.2rem;
+}
+
+.room-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+  background: rgba(26, 143, 143, 0.1);
+  color: #1a8f8f;
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-top: 0.4rem;
+}
+
+.room-price {
+  font-weight: 700;
+  color: #1a8f8f;
+  white-space: nowrap;
+}
+
+.reservation-form {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.reservation-form .actions-row {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 900px) {
+  .hotel-hero {
+    padding: 2.5rem 1.5rem 2rem;
+  }
+
+  .hotel-page {
+    padding: 1.5rem 1.5rem 2rem;
+  }
+
+  .reservation-form {
+    grid-template-columns: 1fr;
+  }
+}

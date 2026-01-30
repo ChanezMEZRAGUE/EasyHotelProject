@@ -1,0 +1,32 @@
+<section class="page">
+  <div>
+    <h1 class="page-title">Hotels disponibles</h1>
+    <p class="section-subtitle">Prix moyens par nuit et disponibilites par type de chambre.</p>
+  </div>
+  <p *ngIf="loading" class="section-subtitle">Chargement des hotels...</p>
+  <p *ngIf="errorMessage" class="section-subtitle">{{ errorMessage }}</p>
+  <p *ngIf="!loading && !errorMessage && hotels.length === 0" class="section-subtitle">
+    Aucun hotel trouve.
+  </p>
+
+  <div class="results-grid">
+    <mat-card *ngFor="let hotel of hotels" class="result-card">
+      <div
+        class="card-image"
+        [style.backgroundImage]="hotel.imageUrl ? 'url(' + hotel.imageUrl + ')' : ''"
+      ></div>
+      <mat-card-content>
+        <h3 class="card-title">{{ hotel.name }}</h3>
+        <p class="card-subtitle">{{ hotel.address }}</p>
+        <p class="price">A partir de {{ hotel.pricePerNight }} EUR / nuit</p>
+        <mat-chip-listbox>
+          <mat-chip *ngFor="let tag of hotel.tags">{{ tag }}</mat-chip>
+        </mat-chip-listbox>
+      </mat-card-content>
+      <mat-card-actions class="actions-row">
+        <a mat-stroked-button routerLink="/hotel/{{ hotel.id }}">Voir details</a>
+        <button mat-flat-button color="primary">Reserver</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</section>

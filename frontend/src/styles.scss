@@ -1,0 +1,63 @@
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+:root {
+  color-scheme: light;
+  --ink: #0a0f16;
+  --sand: #f8f5f0;
+  --sun: #f5b04e;
+  --teal: #1a8f8f;
+  --sky: #6aaed6;
+  --mist: rgba(255, 255, 255, 0.7);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Manrope', 'Trebuchet MS', sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at top left, rgba(245, 176, 78, 0.3), transparent 40%),
+    radial-gradient(circle at 20% 10%, rgba(26, 143, 143, 0.25), transparent 45%),
+    linear-gradient(180deg, #fdf7ef 0%, #f2f5f8 100%);
+  min-height: 100vh;
+}
+
+a {
+  color: inherit;
+}
+
+mat-card {
+  border-radius: 16px;
+  box-shadow: 0 12px 28px rgba(9, 15, 22, 0.12);
+}
+
+.page {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.page-title {
+  font-family: 'DM Serif Display', 'Times New Roman', serif;
+  font-size: 2rem;
+  letter-spacing: 0.05rem;
+}
+
+.section-subtitle {
+  color: #5a6b7a;
+  margin-top: -0.5rem;
+}
+
+.form-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.actions-row {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}

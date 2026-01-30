@@ -1,0 +1,56 @@
+﻿<header class="app-header">
+  <mat-toolbar class="app-toolbar">
+    <div class="brand-block">
+      <a class="brand" routerLink="/search">EasyHoteling</a>
+    </div>
+    <span class="spacer"></span>
+    <div class="lang-switch">
+      <mat-menu #langMenu="matMenu" xPosition="after">
+        <button mat-menu-item *ngFor="let lang of languages" (click)="selectedLang = lang.code">
+          <span class="lang-text">{{ lang.label }}</span>
+          <img class="flag-img" [src]="lang.flagUrl" [alt]="lang.code + ' flag'">
+        </button>
+      </mat-menu>
+      <button mat-button class="lang-pill" [matMenuTriggerFor]="langMenu">
+        <span class="lang-code">{{ selectedLang }}</span>
+        <img class="flag-img" [src]="selectedFlag" [alt]="selectedLang + ' flag'">
+        <mat-icon>expand_more</mat-icon>
+      </button>
+    </div>
+    <nav class="nav-links">
+      <a mat-button routerLink="/search">Rechercher</a>
+      <a mat-button routerLink="/results">Disponibilites</a>
+      <a mat-button routerLink="/my-reservations">Mes reservations</a>
+    </nav>
+    <div class="auth-links" *ngIf="!auth.isAuthenticated()">
+      <a mat-stroked-button routerLink="/login">Se connecter</a>
+      <a mat-flat-button color="primary" routerLink="/register">Creer un compte</a>
+    </div>
+    <div class="auth-links" *ngIf="auth.isAuthenticated()">
+      <mat-menu #accountMenu="matMenu" xPosition="after">
+        <div class="account-card" *ngIf="currentUser">
+          <div class="account-name">{{ currentUser.firstName }} {{ currentUser.lastName }}</div>
+          <div class="account-email">{{ currentUser.email }}</div>
+          <div class="account-phone" *ngIf="currentUser.phone">{{ currentUser.phone }}</div>
+        </div>
+        <button mat-menu-item routerLink="/my-reservations">Mes reservations</button>
+        <button mat-menu-item (click)="logout()">Se deconnecter</button>
+      </mat-menu>
+      <button mat-icon-button class="account-button" [matMenuTriggerFor]="accountMenu" aria-label="Mon compte">
+        <mat-icon>account_circle</mat-icon>
+      </button>
+    </div>
+  </mat-toolbar>
+</header>
+
+<main class="app-shell">
+  <router-outlet></router-outlet>
+</main>
+
+<footer class="app-footer">
+  <div>
+    <strong>EasyHoteling</strong>
+    <span>Reservation hotel - Logiciels surs</span>
+  </div>
+  <span>Version demo - paiement visuel</span>
+</footer>

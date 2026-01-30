@@ -1,0 +1,73 @@
+﻿<section class="hero">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    
+    <h1>Votre prochain voyage commence ici</h1>
+  </div>
+
+  <mat-card class="search-card">
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <div class="search-grid">
+        <mat-form-field appearance="outline" class="search-field">
+          <mat-icon matPrefix>location_on</mat-icon>
+          <mat-label>Où allez-vous ?</mat-label>
+          <mat-select formControlName="regionId">
+            <mat-option *ngFor="let region of regions" [value]="region.id">{{ region.name }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="search-field date-range">
+          <mat-icon matPrefix>date_range</mat-icon>
+          <mat-label>Dates</mat-label>
+          <mat-date-range-input [rangePicker]="picker">
+            <input matStartDate formControlName="checkIn" placeholder="Arrivée">
+            <input matEndDate formControlName="checkOut" placeholder="Départ">
+          </mat-date-range-input>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-date-range-picker #picker></mat-date-range-picker>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="search-field">
+          <mat-icon matPrefix>group</mat-icon>
+          <mat-label>Voyageurs</mat-label>
+          <input matInput type="number" min="1" max="8" formControlName="guests">
+        </mat-form-field>
+
+        <button mat-flat-button color="primary" class="search-button" type="submit">Rechercher</button>
+      </div>
+
+      <div class="search-footer">
+        <mat-checkbox formControlName="business">Je voyage pour affaires</mat-checkbox>
+        <button mat-stroked-button type="button" routerLink="/results">Voir un exemple</button>
+      </div>
+    </form>
+  </mat-card>
+</section>
+
+<section class="page">
+  <section class="feature-grid">
+    <mat-card class="feature-card">
+      <mat-card-title>Disponibilités fiables</mat-card-title>
+      <mat-card-content>
+        <p>Vérification en temps réel sur les chambres et politiques de paiement.</p>
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="feature-card">
+      <mat-card-title>Paiements flexibles</mat-card-title>
+      <mat-card-content>
+        <p>Paiement immédiat, différé ou sur place selon les politiques de l'hôtel.</p>
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="feature-card">
+      <mat-card-title>Gestion simplifiée</mat-card-title>
+      <mat-card-content>
+        <p>Suivez, modifiez ou annulez vos réservations en un clic.</p>
+      </mat-card-content>
+    </mat-card>
+  </section>
+
+  <div>
+    <h2 class="page-title">Découvrez d'autres hôtels</h2>
+    <p class="section-subtitle">Sélection de villes populaires et offres en avant-première.</p>
+  </div>
+</section>

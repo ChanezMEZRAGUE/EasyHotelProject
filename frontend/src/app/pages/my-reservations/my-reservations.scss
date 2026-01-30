@@ -1,0 +1,88 @@
+﻿.page {
+  padding: 0 3rem 2.5rem;
+}
+
+.page-header {
+  margin-bottom: 1.8rem;
+}
+
+.reservation-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.6rem;
+}
+
+.reservation-card {
+  border-radius: 20px;
+  padding: 1.4rem 1.4rem 1.2rem;
+  box-shadow: 0 16px 32px rgba(15, 23, 42, 0.12);
+}
+
+.reservation-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.reservation-hotel {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.reservation-dates {
+  color: #5b6a7c;
+  margin-top: 0.3rem;
+}
+
+.reservation-status {
+  font-size: 0.8rem;
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  background: #edf1f6;
+  font-weight: 600;
+  color: #1d2a52;
+}
+
+.reservation-status.cancelled {
+  background: #ffe4e4;
+  color: #b42318;
+}
+
+.reservation-info {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.8rem;
+  margin: 1.2rem 0;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.info-label {
+  font-size: 0.8rem;
+  color: #718096;
+  text-transform: uppercase;
+  letter-spacing: 0.06rem;
+}
+
+.info-value {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.actions-row {
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+@media (max-width: 700px) {
+  .page {
+    padding: 0 1.5rem 2rem;
+  }
+}

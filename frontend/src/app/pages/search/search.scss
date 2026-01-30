@@ -1,0 +1,156 @@
+.hero {
+  position: relative;
+  padding: 3.5rem 1.5rem 3.5rem;
+  border-radius: 0;
+  overflow: hidden;
+  color: #ffffff;
+  background: url('/assets/hero.jpg') center/cover no-repeat;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: transparent;
+  z-index: 0;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.hero-content h1 {
+  font-family: "DM Serif Display", "Times New Roman", serif;
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  color: #ffffff;
+  text-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+  margin: 0.4rem 0 1rem;
+}
+
+.hero-content p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.hero-eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.2rem;
+  font-size: 0.75rem;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.search-card {
+  position: relative;
+  z-index: 2;
+  margin-top: 2rem;
+  border-radius: 20px;
+  background: #ffffff;
+  padding: 1.2rem 1.5rem 1.4rem;
+  box-shadow: 0 18px 40px rgba(9, 12, 28, 0.25);
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.search-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  align-items: start;
+}
+
+.search-field {
+  width: 100%;
+}
+
+.date-stack {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.search-field mat-icon {
+  color: #1d2a52;
+  margin-right: 0.35rem;
+}
+
+.date-range {
+  min-width: 260px;
+}
+
+.search-button {
+  height: 54px;
+  font-size: 1rem;
+}
+
+.search-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.2rem;
+}
+
+.page {
+  padding: 0 3rem 2.5rem;
+  margin-top: 2rem;
+}
+
+.page-title {
+  color: #141a32;
+}
+
+.section-subtitle {
+  color: #52627a;
+}
+
+.feature-grid {
+  margin-top: 1.5rem;
+}
+
+.feature-card {
+  border-radius: 20px;
+  box-shadow: 0 14px 30px rgba(9, 12, 28, 0.12);
+  border: 1px solid rgba(26, 143, 143, 0.12);
+  background: linear-gradient(180deg, #ffffff 0%, #f7f9fc 100%);
+}
+
+.feature-card mat-card-content {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
+.feature-card mat-card-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin-top: 0.6rem;
+  margin-bottom: 0.4rem;
+  color: #1a2b5c;
+  text-align: center;
+}
+
+.feature-card mat-card-content p {
+  margin: 0;
+  color: #506072;
+  text-align: center;
+}
+
+@media (max-width: 900px) {
+  .hero {
+    padding: 3rem 1.2rem 2.5rem;
+  }
+
+  .search-grid {
+    grid-template-columns: 1fr;
+  }
+}

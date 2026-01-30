@@ -1,0 +1,123 @@
+﻿// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum ReservationStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+}
+
+enum PaymentMode {
+  PAY_NOW
+  PAY_20_DAYS_BEFORE
+  PAY_ON_SITE
+  FREE
+}
+
+enum PaymentStatus {
+  UNPAID
+  SCHEDULED
+  PAID
+  NOT_REQUIRED
+}
+
+enum PaymentRecordStatus {
+  INITIATED
+  SUCCESS
+  FAILED
+  CANCELLED
+}
+
+model Region {
+  id     String  @id @default(uuid())
+  name   String  @unique
+  hotels Hotel[]
+
+  @@map("regions")
+}
+
+model Hotel {
+  id           String        @id @default(uuid())
+  name         String
+  regionId     String        @map("region_id")
+  address      String
+  starRating   Int?          @map("star_rating")
+  heroImageUrl String?       @map("hero_image_url")
+  policies     Json          @db.JsonB
+  region       Region        @relation(fields: [regionId], references: [id])
+  roomTypes    RoomType[]
+  reservations Reservation[]
+
+  @@map("hotels")
+}
+
+model RoomType {
+  id                 String        @id @default(uuid())
+  hotelId            String        @map("hotel_id")
+  name               String
+  capacity           Int
+  pricePerNightCents Int           @map("price_per_night_cents")
+  totalRooms         Int           @map("total_rooms")
+  hotel              Hotel         @relation(fields: [hotelId], references: [id])
+  reservations       Reservation[]
+
+  @@map("room_types")
+}
+
+model User {
+  id                  String               @id @default(uuid())
+  email               String               @unique
+  passwordHash        String               @map("password_hash")
+  firstName           String               @map("first_name")
+  lastName            String               @map("last_name")
+  phone               String?
+  createdAt           DateTime             @default(now()) @map("created_at")
+  reservations        Reservation[]
+
+  @@map("users")
+}
+
+model Reservation {
+  id              String            @id @default(uuid())
+  userId          String            @map("user_id")
+  hotelId         String            @map("hotel_id")
+  roomTypeId      String            @map("room_type_id")
+  checkIn         DateTime          @map("check_in") @db.Date
+  checkOut        DateTime          @map("check_out") @db.Date
+  guests          Int
+  status          ReservationStatus
+  paymentMode     PaymentMode       @map("payment_mode")
+  paymentStatus   PaymentStatus     @map("payment_status")
+  totalPriceCents Int               @map("total_price_cents")
+  createdAt       DateTime          @default(now()) @map("created_at")
+  updatedAt       DateTime          @updatedAt @map("updated_at")
+  user            User              @relation(fields: [userId], references: [id])
+  hotel           Hotel             @relation(fields: [hotelId], references: [id])
+  roomType        RoomType          @relation(fields: [roomTypeId], references: [id])
+  payments        Payment[]
+
+  @@map("reservations")
+}
+
+model Payment {
+  id             String              @id @default(uuid())
+  reservationId  String              @map("reservation_id")
+  amountCents    Int                 @map("amount_cents")
+  status         PaymentRecordStatus
+  dueDate        DateTime?           @map("due_date") @db.Date
+  createdAt      DateTime            @default(now()) @map("created_at")
+  reservation    Reservation         @relation(fields: [reservationId], references: [id])
+
+  @@map("payments")
+}
