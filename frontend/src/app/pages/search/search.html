@@ -1,4 +1,4 @@
-﻿<section class="hero">
+﻿<section class="hero" id="search-top">
   <div class="hero-overlay"></div>
   <div class="hero-content">
     
@@ -12,6 +12,7 @@
           <mat-icon matPrefix>location_on</mat-icon>
           <mat-label>Où allez-vous ?</mat-label>
           <mat-select formControlName="regionId">
+            <mat-option *ngIf="loadingRegions" disabled>Chargement des régions...</mat-option>
             <mat-option *ngFor="let region of regions" [value]="region.id">{{ region.name }}</mat-option>
           </mat-select>
         </mat-form-field>
@@ -70,4 +71,111 @@
     <h2 class="page-title">Découvrez d'autres hôtels</h2>
     <p class="section-subtitle">Sélection de villes populaires et offres en avant-première.</p>
   </div>
+
+  <section class="section-block region-grid">
+    <mat-card class="region-card paris">
+      <div class="region-image"></div>
+      <div class="region-body">
+        <h3>Paris</h3>
+        <p>Île-de-France</p>
+        <span>Dès 140 EUR / nuit</span>
+      </div>
+    </mat-card>
+    <mat-card class="region-card lyon">
+      <div class="region-image"></div>
+      <div class="region-body">
+        <h3>Lyon</h3>
+        <p>Auvergne-Rhône-Alpes</p>
+        <span>Dès 120 EUR / nuit</span>
+      </div>
+    </mat-card>
+    <mat-card class="region-card marseille">
+      <div class="region-image"></div>
+      <div class="region-body">
+        <h3>Marseille</h3>
+        <p>Provence-Alpes-Côte d'Azur</p>
+        <span>Dès 110 EUR / nuit</span>
+      </div>
+    </mat-card>
+    <mat-card class="region-card bordeaux">
+      <div class="region-image"></div>
+      <div class="region-body">
+        <h3>Bordeaux</h3>
+        <p>Nouvelle-Aquitaine</p>
+        <span>Dès 125 EUR / nuit</span>
+      </div>
+    </mat-card>
+    <mat-card class="region-card nantes">
+      <div class="region-image"></div>
+      <div class="region-body">
+        <h3>Nantes</h3>
+        <p>Pays de la Loire</p>
+        <span>Dès 115 EUR / nuit</span>
+      </div>
+    </mat-card>
+    <mat-card class="region-card strasbourg">
+      <div class="region-image"></div>
+      <div class="region-body">
+        <h3>Strasbourg</h3>
+        <p>Grand Est</p>
+        <span>Dès 130 EUR / nuit</span>
+      </div>
+    </mat-card>
+  </section>
+
+  <section class="section-block">
+    <div class="section-header">
+      <h2 class="page-title">Offres du moment</h2>
+      <p class="section-subtitle">Des séjours sélectionnés avec des avantages exclusifs.</p>
+    </div>
+    <div class="offer-grid">
+      <mat-card class="offer-card">
+        <div class="offer-badge">-15%</div>
+        <h3>Azur Bay Resort</h3>
+        <p>Nice · Vue mer · Petit-déjeuner inclus</p>
+        <span>À partir de 200 EUR / nuit</span>
+      </mat-card>
+      <mat-card class="offer-card">
+        <div class="offer-badge">Annulation gratuite</div>
+        <h3>Atlas Riverside</h3>
+        <p>Lyon · Centre-ville · Spa</p>
+        <span>À partir de 128 EUR / nuit</span>
+      </mat-card>
+      <mat-card class="offer-card">
+        <div class="offer-badge">Payez sur place</div>
+        <h3>Champs Lumière</h3>
+        <p>Paris · Premium · 4 étoiles</p>
+        <span>À partir de 155 EUR / nuit</span>
+      </mat-card>
+    </div>
+  </section>
+
+  <section class="section-block">
+    <div class="section-header">
+      <h2 class="page-title">Avis voyageurs</h2>
+      <p class="section-subtitle">Ils ont réservé avec EasyHoteling.</p>
+    </div>
+    <div class="testimonial-grid">
+      <mat-card class="testimonial-card">
+        <p>“Réservation rapide et claire, j’ai trouvé mon hôtel en 2 minutes.”</p>
+        <span>Sarah · Paris</span>
+      </mat-card>
+      <mat-card class="testimonial-card">
+        <p>“Interface moderne et paiement flexible, parfait pour mes déplacements.”</p>
+        <span>Amine · Lille</span>
+      </mat-card>
+      <mat-card class="testimonial-card">
+        <p>“Les détails des chambres sont précis, la réservation est fluide.”</p>
+        <span>Camille · Marseille</span>
+      </mat-card>
+    </div>
+  </section>
+
+  <section class="cta-banner">
+    <div>
+      <h2>Prêt à réserver votre prochain séjour ?</h2>
+      <p>Comparez les offres et bloquez votre chambre en quelques clics.</p>
+    </div>
+    <a mat-flat-button color="primary" href="#search-top">Rechercher un hôtel</a>
+  </section>
 </section>

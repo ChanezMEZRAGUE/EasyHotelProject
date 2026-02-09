@@ -145,6 +145,162 @@
   text-align: center;
 }
 
+.section-block {
+  margin-top: 2.5rem;
+}
+
+.section-header {
+  margin-bottom: 1.2rem;
+}
+
+.region-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 1.2rem;
+}
+
+.region-card {
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 14px 30px rgba(9, 12, 28, 0.12);
+}
+
+.region-image {
+  height: 150px;
+  background-size: cover;
+  background-position: center;
+}
+
+.region-card.paris .region-image {
+  background-image: url('https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=900&q=80');
+}
+
+.region-card.lyon .region-image {
+  background-image: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=900&q=80');
+}
+
+.region-card.marseille .region-image {
+  background-image: url('https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=900&q=80');
+}
+
+.region-card.bordeaux .region-image {
+  background-image: url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80');
+}
+
+.region-card.nantes .region-image {
+  background-image: url('https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=900&q=80');
+}
+
+.region-card.strasbourg .region-image {
+  background-image: url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=900&q=80');
+}
+
+.region-body {
+  padding: 1rem 1.1rem 1.2rem;
+}
+
+.region-body h3 {
+  margin: 0 0 0.4rem;
+  font-size: 1.05rem;
+  color: #1a2b5c;
+}
+
+.region-body p {
+  margin: 0 0 0.5rem;
+  color: #5b6a7c;
+}
+
+.region-body span {
+  font-weight: 600;
+  color: #1d2a52;
+}
+
+.offer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.2rem;
+}
+
+.offer-card {
+  position: relative;
+  border-radius: 20px;
+  padding: 1.4rem 1.3rem 1.6rem;
+  background: linear-gradient(180deg, #ffffff 0%, #f7f9fc 100%);
+  box-shadow: 0 14px 30px rgba(9, 12, 28, 0.12);
+}
+
+.offer-card h3 {
+  margin: 0 0 0.5rem;
+  color: #1a2b5c;
+}
+
+.offer-card p {
+  margin: 0 0 0.8rem;
+  color: #5b6a7c;
+}
+
+.offer-card span {
+  font-weight: 600;
+  color: #1d2a52;
+}
+
+.offer-badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: #1d2a52;
+  color: #ffffff;
+  font-size: 0.75rem;
+  padding: 0.3rem 0.6rem;
+  border-radius: 999px;
+}
+
+.testimonial-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.2rem;
+}
+
+.testimonial-card {
+  border-radius: 20px;
+  padding: 1.3rem 1.4rem;
+  background: #ffffff;
+  box-shadow: 0 14px 30px rgba(9, 12, 28, 0.12);
+}
+
+.testimonial-card p {
+  margin: 0 0 0.8rem;
+  color: #4b5a6b;
+}
+
+.testimonial-card span {
+  font-weight: 600;
+  color: #1d2a52;
+}
+
+.cta-banner {
+  margin-top: 2.8rem;
+  padding: 2rem 2.4rem;
+  border-radius: 24px;
+  background: #141a32;
+  color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.cta-banner h2 {
+  margin: 0 0 0.4rem;
+  font-size: 1.5rem;
+}
+
+.cta-banner p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.8);
+}
+
 @media (max-width: 900px) {
   .hero {
     padding: 3rem 1.2rem 2.5rem;
@@ -152,5 +308,9 @@
 
   .search-grid {
     grid-template-columns: 1fr;
+  }
+
+  .cta-banner {
+    padding: 1.6rem;
   }
 }
