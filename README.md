@@ -1,24 +1,38 @@
-﻿# EasyHoteling - Hotel Booking (M2 Logiciels sûrs)
+# EasyHoteling (M2 Logiciels sures)
 
-EasyHoteling is a full-stack hotel booking web application built entirely in **TypeScript**.
-It uses **Angular** for the frontend and **NestJS + Prisma + PostgreSQL** for the backend.
+Application web de reservation d'hotels developpee completement en TypeScript:
+- Frontend: Angular
+- Backend: NestJS (ts-node)
+- Base de donnees: PostgreSQL + Prisma
 
-## Features (current MVP)
-- Search hotels and view results
-- Hotel details with room types
-- User registration & login (JWT)
-- REST API documented with Swagger
-- Seed data for demo (regions, hotels, room types)
+## Fonctionnalites implementees
+- Authentification client: `register`, `login`, `me` (JWT)
+- Chargement des regions depuis la base
+- Recherche de disponibilite avec logique de chevauchement:
+  - endpoint `GET /search/availability`
+  - filtre par `regionId`, `checkIn`, `checkOut`, `guests`
+  - ne retourne que les chambres avec `capacity >= guests` et `availableRooms > 0`
+- Liste des hotels (`GET /hotels`) et detail (`GET /hotels/:id`)
+- Creation de reservation (`POST /reservations`)
+- Liste des reservations utilisateur (`GET /reservations`)
+- Modification de reservation (`PATCH /reservations/:id`)
+- Annulation de reservation (`POST /reservations/:id/cancel`)
+- Swagger disponible en local
 
-## Tech Stack
+## Fonctionnalites non finalisees
+- Paiement visuel via endpoint dedie (`POST /reservations/:id/pay`)
+- Suite de tests automatisee complete (unitaires + Postman export final)
+- Deploiement cloud final documente (URLs de production)
+
+## Stack technique
 - Frontend: Angular + Angular Material + SCSS
-- Backend: NestJS (ts-node), Prisma ORM
+- Backend: NestJS + class-validator + JWT
+- ORM: Prisma
 - Database: PostgreSQL
-- Auth: JWT
-- API docs: Swagger / OpenAPI
+- API docs: Swagger/OpenAPI (`/api/docs`)
 
-## Repository Structure
-```
+## Structure du projet
+```text
 hotel-booking/
   backend/
   frontend/
@@ -28,20 +42,19 @@ hotel-booking/
   README.md
 ```
 
-## Prerequisites
-- Node.js (LTS)
-- Docker Desktop (for PostgreSQL)
+## Prerequis
+- Node.js LTS
 - npm
+- Docker Desktop
 
-## Local Setup (Quick Start)
-### 1) Start the database
-```
-cd hotel-booking
+## Installation rapide
+1. Demarrer la base:
+```bash
 docker compose up -d
 ```
 
-### 2) Backend
-```
+2. Backend:
+```bash
 cd backend
 npm install
 npx prisma migrate dev --name init
@@ -49,30 +62,45 @@ npm run prisma:seed
 npm run start:dev
 ```
 
-### 3) Frontend
-```
-cd frontend
+3. Frontend:
+```bash
+cd ../frontend
 npm install
 npm start
 ```
 
-## URLs
-- Frontend: http://localhost:4200
-- Backend: http://localhost:3000
-- Swagger: http://localhost:3000/api/docs
+## URLs locales
+- Frontend: `http://localhost:4200`
+- Backend: `http://localhost:3000`
+- Swagger: `http://localhost:3000/api/docs`
+- Prisma Studio: `http://localhost:5555` (apres `npx prisma studio` dans `backend`)
 
-## Tests (to complete)
-- Unit tests: Jest (backend)
-- API tests: Postman collection
+## Variables d'environnement backend
+Fichier `backend/.env`:
 
-## Documentation
-- docs/INSTALL.md
-- docs/USAGE.md
-- docs/AI_REPORT.md
+```env
+DATABASE_URL=postgresql://hotel:hotel@localhost:5432/hotel_booking?schema=public
+JWT_SECRET=change-me
+FRONTEND_URL=http://localhost:4200
+PORT=3000
+```
 
-## Deployment (planned)
-- Backend: Azure / Render / Railway
-- Frontend: Azure Static Web Apps / Netlify / Vercel
+## Tests
+- Backend unit tests:
+```bash
+cd backend
+npm test
+```
 
----
+- Build backend:
+```bash
+cd backend
+npm run build
+```
 
+Note: le build frontend peut echouer sur le budget Angular configure (`initial exceeded maximum budget`) meme si les fonctionnalites tournent en `ng serve`.
+
+## Documentation detaillee
+- `docs/INSTALL.md`
+- `docs/USAGE.md`
+- `docs/AI_REPORT.md`

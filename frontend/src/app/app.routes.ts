@@ -13,7 +13,7 @@ export const routes: Routes = [
   { path: 'register', component: Register },
   { path: 'search', component: Search },
   { path: 'results', component: Results },
-  { path: 'hotel/:id', component: HotelDetail },
+  { path: 'hotel/:id', component: HotelDetail, canActivate: [AuthGuard] },
   { path: 'my-reservations', component: MyReservations, canActivate: [AuthGuard] },
   { path: '**', redirectTo: 'search' }
 ];

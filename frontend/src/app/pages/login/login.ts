@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { MATERIAL_MODULES } from '../../shared/material';
 import { ApiService } from '../../core/api.service';
 import { AuthService } from '../../core/auth.service';
@@ -17,9 +17,11 @@ export class Login {
   private readonly api = inject(ApiService);
   private readonly auth = inject(AuthService);
   private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
 
   loading = false;
   errorMessage = '';
+  readonly returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') ?? undefined;
 
   form = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
@@ -45,7 +47,8 @@ export class Login {
         this.auth.setToken(res.accessToken);
         this.auth.setUser(res.user);
         this.loading = false;
-        this.router.navigate(['/search']);
+        const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
+        this.router.navigateByUrl(returnUrl || '/search');
       },
       error: () => {
         this.loading = false;

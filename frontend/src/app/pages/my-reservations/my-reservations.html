@@ -4,6 +4,10 @@
     <p class="section-subtitle">Consultez, modifiez ou annulez vos séjours.</p>
   </div>
 
+  <p class="section-subtitle" *ngIf="message">{{ message }}</p>
+  <p class="section-subtitle" *ngIf="loading">Chargement des réservations...</p>
+  <p class="section-subtitle" *ngIf="!loading && reservations.length === 0">Aucune réservation pour le moment.</p>
+
   <div class="reservation-grid">
     <mat-card *ngFor="let reservation of reservations" class="reservation-card">
       <div class="reservation-top">
@@ -11,7 +15,7 @@
           <div class="reservation-hotel">{{ reservation.hotelName }}</div>
           <div class="reservation-dates">{{ reservation.dates }}</div>
         </div>
-        <span class="reservation-status" [class.cancelled]="reservation.status === 'Annulée'">
+        <span class="reservation-status" [class.cancelled]="reservation.status === 'CANCELLED'">
           {{ reservation.status }}
         </span>
       </div>
@@ -30,10 +34,48 @@
       <mat-divider></mat-divider>
 
       <div class="actions-row">
-        <button mat-stroked-button>Modifier</button>
-        <button mat-stroked-button color="warn">Annuler</button>
+        <button mat-stroked-button (click)="startEdit(reservation)" [disabled]="reservation.status === 'CANCELLED'">
+          Modifier
+        </button>
+        <button
+          mat-stroked-button
+          color="warn"
+          (click)="cancelReservation(reservation)"
+          [disabled]="reservation.status === 'CANCELLED'"
+        >
+          Annuler
+        </button>
         <button mat-flat-button color="primary">Payer</button>
       </div>
+
+      <form
+        class="edit-form"
+        *ngIf="editingReservationId === reservation.id"
+        [formGroup]="editForm"
+        (ngSubmit)="saveEdit(reservation)"
+      >
+        <mat-form-field appearance="outline">
+          <mat-label>Date d'arrivée</mat-label>
+          <input matInput type="date" formControlName="checkIn" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Date de départ</mat-label>
+          <input matInput type="date" formControlName="checkOut" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Voyageurs</mat-label>
+          <input matInput type="number" min="1" max="8" formControlName="guests" />
+        </mat-form-field>
+
+        <div class="actions-row">
+          <button mat-flat-button color="primary" type="submit" [disabled]="saving">
+            {{ saving ? 'Enregistrement...' : 'Enregistrer' }}
+          </button>
+          <button mat-stroked-button type="button" (click)="cancelEdit()">Fermer</button>
+        </div>
+      </form>
     </mat-card>
   </div>
 </section>

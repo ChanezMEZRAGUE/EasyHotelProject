@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { MATERIAL_MODULES } from '../../shared/material';
 import { ApiService } from '../../core/api.service';
 import { AuthService } from '../../core/auth.service';
@@ -17,10 +17,12 @@ export class Register {
   private readonly api = inject(ApiService);
   private readonly auth = inject(AuthService);
   private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
   private readonly cdr = inject(ChangeDetectorRef);
 
   loading = false;
   errorMessage = '';
+  readonly returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') ?? undefined;
 
   form = this.fb.group({
     firstName: ['', Validators.required],
@@ -53,7 +55,8 @@ export class Register {
         this.auth.setUser(res.user);
         this.loading = false;
         this.cdr.detectChanges();
-        this.router.navigate(['/search']);
+        const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
+        this.router.navigateByUrl(returnUrl || '/search');
       },
       error: (err) => {
         this.loading = false;

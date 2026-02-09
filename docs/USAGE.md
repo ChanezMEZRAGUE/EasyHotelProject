@@ -1,26 +1,57 @@
-﻿# Usage Guide (EasyHoteling)
+# USAGE - EasyHoteling
 
-## 1) Register / Login
-- Go to `/register` to create an account
-- Go to `/login` to sign in
+## Flux utilisateur principal
 
-## 2) Search Hotels
-- Open `/search`
-- Select a region, dates, and number of guests
-- Click **Rechercher**
+## 1) Inscription / Connexion
+- Aller sur `/register` pour creer un compte client.
+- Aller sur `/login` pour se connecter.
+- Les pages protegees (ex: `/hotel/:id`, `/my-reservations`) redirigent vers login si non connecte.
 
-## 3) View Results
-- `/results` shows available hotels
-- Click **Voir details** to open a hotel page
+## 2) Recherche d'hotels
+- Aller sur `/search`.
+- Choisir:
+  - region
+  - date d'arrivee
+  - date de depart
+  - nombre de voyageurs
+- Cliquer sur rechercher.
 
-## 4) Hotel Details
-- See hotel information and available room types
-- Start the reservation form (visual only for now)
+## 3) Disponibilite reelle
+- La recherche appelle `GET /search/availability`.
+- La disponibilite est calculee avec chevauchement des reservations:
+  - overlap si `existing.check_in < requested.check_out`
+  - et `existing.check_out > requested.check_in`
+- Seules les chambres compatibles sont renvoyees.
 
-## 5) My Reservations
-- `/my-reservations` page (requires login)
-- Lists reservations (currently demo data)
+## 4) Detail hotel et reservation
+- Depuis `/results`, cliquer sur `Voir details`.
+- Remplir le formulaire:
+  - type de chambre
+  - dates
+  - voyageurs
+  - mode de paiement autorise par les policies hotel
+- Cliquer `Confirmer la reservation`.
 
-## Notes
-- Payments are **visual only** (no real transaction)
-- Some backend endpoints are available via Swagger: `/api/docs`
+## 5) Mes reservations
+- Aller sur `/my-reservations`.
+- Fonctionnalites actuelles:
+  - lister ses reservations
+  - modifier dates/voyageurs (`PATCH /reservations/:id`)
+  - annuler (`POST /reservations/:id/cancel`)
+
+## API utile pour demo
+- `GET /regions`
+- `GET /hotels?regionId=&q=`
+- `GET /hotels/:id`
+- `GET /search/availability?regionId=&checkIn=&checkOut=&guests=`
+- `POST /auth/register`
+- `POST /auth/login`
+- `GET /auth/me`
+- `POST /reservations`
+- `GET /reservations`
+- `PATCH /reservations/:id`
+- `POST /reservations/:id/cancel`
+
+## Limites actuelles
+- Le bouton `Payer` front n'est pas encore relie a un endpoint final.
+- La logique complete de frais d'annulation (policy `cancellationFreeUntilDaysBefore`) est partielle.

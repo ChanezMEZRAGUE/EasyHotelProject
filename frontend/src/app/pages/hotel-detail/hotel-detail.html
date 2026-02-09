@@ -70,9 +70,14 @@
           </mat-form-field>
 
           <div class="actions-row">
-            <button mat-flat-button color="primary" type="submit">Confirmer la réservation</button>
+            <button mat-flat-button color="primary" type="submit" [disabled]="reserving">
+              {{ reserving ? 'Confirmation...' : 'Confirmer la réservation' }}
+            </button>
             <a mat-stroked-button routerLink="/results">Retour</a>
           </div>
+
+          <p class="section-subtitle" *ngIf="reserveSuccess">{{ reserveSuccess }}</p>
+          <p class="section-subtitle" *ngIf="reserveError">{{ reserveError }}</p>
         </form>
       </mat-card-content>
     </mat-card>

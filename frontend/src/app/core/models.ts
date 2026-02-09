@@ -45,6 +45,15 @@ export interface Reservation {
   totalPriceCents: number;
   createdAt: string;
   updatedAt: string;
+  hotel?: {
+    id: string;
+    name: string;
+    address: string;
+  };
+  roomType?: {
+    id: string;
+    name: string;
+  };
 }
 
 export interface AuthUser {

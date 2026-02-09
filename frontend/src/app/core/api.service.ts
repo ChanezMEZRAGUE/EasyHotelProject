@@ -47,6 +47,36 @@ export class ApiService {
     return this.http.get<Reservation[]>(`${this.baseUrl}/reservations`);
   }
 
+  createReservation(payload: {
+    hotelId: string;
+    roomTypeId: string;
+    checkIn: string;
+    checkOut: string;
+    guests: number;
+    paymentMode: 'PAY_NOW' | 'PAY_20_DAYS_BEFORE' | 'PAY_ON_SITE' | 'FREE';
+  }): Observable<Reservation> {
+    return this.http.post<Reservation>(`${this.baseUrl}/reservations`, payload);
+  }
+
+  updateReservation(
+    id: string,
+    payload: {
+      roomTypeId?: string;
+      checkIn?: string;
+      checkOut?: string;
+      guests?: number;
+    },
+  ): Observable<Reservation> {
+    return this.http.patch<Reservation>(`${this.baseUrl}/reservations/${id}`, payload);
+  }
+
+  cancelReservation(id: string): Observable<{ reservation: Reservation; message: string }> {
+    return this.http.post<{ reservation: Reservation; message: string }>(
+      `${this.baseUrl}/reservations/${id}/cancel`,
+      {},
+    );
+  }
+
   register(payload: {
     firstName: string;
     lastName: string;

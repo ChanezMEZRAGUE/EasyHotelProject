@@ -41,7 +41,7 @@
 
       <div class="auth-footer">
         <span>Déjà inscrit ?</span>
-        <a routerLink="/login">Se connecter</a>
+        <a routerLink="/login" [queryParams]="returnUrl ? { returnUrl: returnUrl } : null">Se connecter</a>
       </div>
     </form>
   </div>
