@@ -56,11 +56,36 @@ Frontend disponible sur `http://localhost:4200`
 cd ../backend
 npx prisma studio
 ```
+Note: le port de Prisma Studio peut varier selon la session.
 
 ## 9) Verification minimale
 1. Ouvrir `http://localhost:3000/regions` et verifier que la liste des regions s'affiche.
 2. Ouvrir `http://localhost:4200/search` et verifier que le menu region charge les valeurs.
 3. Creer un compte, se connecter, reserver un hotel.
+4. Aller sur `http://localhost:4200/account` et verifier la modification prenom/nom/telephone.
+5. Aller sur `http://localhost:4200/my-reservations` et tester le paiement simule.
+
+## 10) Lancer les tests backend (Jest)
+```bash
+cd backend
+npm test
+```
+
+## 11) Lancer les tests API (Postman/Newman)
+Installer Newman (une seule fois):
+```bash
+npm i -g newman
+```
+
+Executer la collection:
+```bash
+cd postman
+newman run EasyHoteling.postman_collection.json -e EasyHoteling.postman_environment.json
+```
+
+Fichiers fournis:
+- `postman/EasyHoteling.postman_collection.json`
+- `postman/EasyHoteling.postman_environment.json`
 
 ## Troubleshooting
 - `Nest can't resolve dependencies of JwtAuthGuard`:

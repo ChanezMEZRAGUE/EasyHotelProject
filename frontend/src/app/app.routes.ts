@@ -6,6 +6,7 @@ import { Results } from './pages/results/results';
 import { HotelDetail } from './pages/hotel-detail/hotel-detail';
 import { MyReservations } from './pages/my-reservations/my-reservations';
 import { AuthGuard } from './core/auth.guard';
+import { Account } from './pages/account/account';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'search' },
@@ -14,6 +15,7 @@ export const routes: Routes = [
   { path: 'search', component: Search },
   { path: 'results', component: Results },
   { path: 'hotel/:id', component: HotelDetail, canActivate: [AuthGuard] },
+  { path: 'account', component: Account, canActivate: [AuthGuard] },
   { path: 'my-reservations', component: MyReservations, canActivate: [AuthGuard] },
   { path: '**', redirectTo: 'search' }
 ];

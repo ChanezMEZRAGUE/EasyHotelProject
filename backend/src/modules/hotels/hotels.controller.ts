@@ -34,7 +34,7 @@ export class HotelsController {
   async getHotelById(@Param('id') id: string) {
     const hotel = await this.hotelsService.getHotelById(id);
     if (!hotel) {
-      throw new NotFoundException('Hotel not found');
+      throw new NotFoundException('Hôtel introuvable');
     }
     return hotel;
   }

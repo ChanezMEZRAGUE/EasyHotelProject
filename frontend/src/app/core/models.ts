@@ -62,6 +62,7 @@ export interface AuthUser {
   firstName: string;
   lastName: string;
   phone?: string | null;
+  createdAt?: string;
 }
 
 export interface AuthResponse {

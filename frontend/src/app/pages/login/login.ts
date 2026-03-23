@@ -5,10 +5,12 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { MATERIAL_MODULES } from '../../shared/material';
 import { ApiService } from '../../core/api.service';
 import { AuthService } from '../../core/auth.service';
+import { TrPipe } from '../../shared/tr.pipe';
+import { I18nService } from '../../core/i18n.service';
 
 @Component({
   selector: 'app-login',
-  imports: [CommonModule, ReactiveFormsModule, RouterLink, ...MATERIAL_MODULES],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink, TrPipe, ...MATERIAL_MODULES],
   templateUrl: './login.html',
   styleUrl: './login.scss'
 })
@@ -18,6 +20,7 @@ export class Login {
   private readonly auth = inject(AuthService);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
+  private readonly i18n = inject(I18nService);
 
   loading = false;
   errorMessage = '';
@@ -50,9 +53,9 @@ export class Login {
         const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
         this.router.navigateByUrl(returnUrl || '/search');
       },
-      error: () => {
+      error: (err) => {
         this.loading = false;
-        this.errorMessage = 'Email ou mot de passe incorrect.';
+        this.errorMessage = this.i18n.translateApiMessage(err?.error?.message, 'login.invalidCredentials');
       }
     });
   }

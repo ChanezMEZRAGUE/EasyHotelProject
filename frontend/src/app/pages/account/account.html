@@ -1,0 +1,41 @@
+<section class="page">
+  <div class="page-header">
+    <h1 class="page-title">{{ 'account.title' | tr }}</h1>
+    <p class="section-subtitle">{{ 'account.subtitle' | tr }}</p>
+  </div>
+
+  <p class="section-subtitle" *ngIf="loading">{{ 'account.loading' | tr }}</p>
+  <p class="section-subtitle" *ngIf="message">{{ message }}</p>
+
+  <mat-card class="account-card" *ngIf="!loading">
+    <form [formGroup]="userForm" (ngSubmit)="save()" class="account-form">
+      <div class="form-grid">
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'account.firstName' | tr }}</mat-label>
+          <input matInput formControlName="firstName" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'account.lastName' | tr }}</mat-label>
+          <input matInput formControlName="lastName" />
+        </mat-form-field>
+      </div>
+
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'account.email' | tr }}</mat-label>
+        <input matInput formControlName="email" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'account.phone' | tr }}</mat-label>
+        <input matInput formControlName="phone" />
+      </mat-form-field>
+
+      <div class="actions-row">
+        <button mat-flat-button color="primary" type="submit" [disabled]="saving">
+          {{ saving ? ('account.saving' | tr) : ('account.save' | tr) }}
+        </button>
+      </div>
+    </form>
+  </mat-card>
+</section>

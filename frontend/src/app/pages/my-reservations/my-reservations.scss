@@ -74,6 +74,35 @@
   font-weight: 600;
 }
 
+.payment-status {
+  display: inline-block;
+  width: fit-content;
+  border-radius: 999px;
+  padding: 0.2rem 0.6rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.payment-status.paid {
+  background: #e6f6ec;
+  color: #146c2e;
+}
+
+.payment-status.scheduled {
+  background: #e9efff;
+  color: #1d2a52;
+}
+
+.payment-status.unpaid {
+  background: #fff1d8;
+  color: #9a6700;
+}
+
+.payment-status.not-required {
+  background: #eef2f7;
+  color: #425466;
+}
+
 .actions-row {
   margin-top: 1rem;
   display: flex;
@@ -88,8 +117,56 @@
   gap: 0.8rem;
 }
 
+.pay-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(8, 15, 44, 0.55);
+  display: grid;
+  place-items: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.pay-modal {
+  width: min(540px, 100%);
+  background: #fff;
+  border-radius: 16px;
+  padding: 1.2rem 1.2rem 1rem;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.25);
+}
+
+.pay-modal h3 {
+  margin: 0;
+}
+
+.pay-modal-subtitle {
+  margin: 0.35rem 0 1rem;
+  color: #5b6a7c;
+}
+
+.pay-form {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.pay-form-inline {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.8rem;
+}
+
+.pay-notice {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #5b6a7c;
+}
+
 @media (max-width: 700px) {
   .page {
     padding: 0 1.5rem 2rem;
+  }
+
+  .pay-form-inline {
+    grid-template-columns: 1fr;
   }
 }

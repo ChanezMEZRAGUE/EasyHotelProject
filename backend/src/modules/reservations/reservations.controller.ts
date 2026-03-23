@@ -43,4 +43,12 @@ export class ReservationsController {
     const user = (req as any).user;
     return this.reservationsService.cancel(user.sub, id);
   }
+
+  @Post(':id/pay')
+  @ApiOperation({ summary: 'Payer une reservation' })
+  @ApiOkResponse({ description: 'Reservation payee' })
+  pay(@Req() req: Request, @Param('id') id: string) {
+    const user = (req as any).user;
+    return this.reservationsService.pay(user.sub, id);
+  }
 }

@@ -1,0 +1,39 @@
+.page {
+  padding: 0 3rem 2.5rem;
+}
+
+.page-header {
+  margin-bottom: 1.8rem;
+}
+
+.account-card {
+  border-radius: 20px;
+  padding: 1.2rem;
+  box-shadow: 0 16px 32px rgba(15, 23, 42, 0.12);
+  max-width: 780px;
+}
+
+.account-form {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.8rem;
+}
+
+.actions-row {
+  margin-top: 0.6rem;
+}
+
+@media (max-width: 700px) {
+  .page {
+    padding: 0 1.5rem 2rem;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -6,6 +6,7 @@
 - Aller sur `/register` pour creer un compte client.
 - Aller sur `/login` pour se connecter.
 - Les pages protegees (ex: `/hotel/:id`, `/my-reservations`) redirigent vers login si non connecte.
+- Le bouton de deconnexion redirige automatiquement vers `/search`.
 
 ## 2) Recherche d'hotels
 - Aller sur `/search`.
@@ -31,6 +32,7 @@
   - voyageurs
   - mode de paiement autorise par les policies hotel
 - Cliquer `Confirmer la reservation`.
+- La page affiche la politique d'annulation de l'hotel (J-X ou pas d'annulation gratuite).
 
 ## 5) Mes reservations
 - Aller sur `/my-reservations`.
@@ -38,8 +40,15 @@
   - lister ses reservations
   - modifier dates/voyageurs (`PATCH /reservations/:id`)
   - annuler (`POST /reservations/:id/cancel`)
+  - payer via popup carte simulee (`POST /reservations/:id/pay`)
+  - statut de paiement visible (a payer, planifie, paye, non requis)
 
-## API utile pour demo
+## 6) Mon compte
+- Aller sur `/account`.
+- Afficher le profil courant (`GET /auth/me`).
+- Modifier prenom, nom et telephone (`PATCH /auth/me`).
+
+## API utile 
 - `GET /regions`
 - `GET /hotels?regionId=&q=`
 - `GET /hotels/:id`
@@ -47,11 +56,23 @@
 - `POST /auth/register`
 - `POST /auth/login`
 - `GET /auth/me`
+- `PATCH /auth/me`
 - `POST /reservations`
 - `GET /reservations`
 - `PATCH /reservations/:id`
 - `POST /reservations/:id/cancel`
+- `POST /reservations/:id/pay`
+
+## Tests livres avec le projet
+- Tests unitaires backend (Jest):
+  - disponibilite/chevauchement
+  - paiement (`POST /reservations/:id/pay`) cas OK et cas refuses
+  - auth (hash + validation login/register)
+- Tests API Postman/Newman:
+  - regions
+  - recherche de disponibilite
+  - register/login
+  - create/list/update/cancel/pay reservation
 
 ## Limites actuelles
-- Le bouton `Payer` front n'est pas encore relie a un endpoint final.
-- La logique complete de frais d'annulation (policy `cancellationFreeUntilDaysBefore`) est partielle.
+- Deploiement cloud final a documenter (URL publique backend/frontend).

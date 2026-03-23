@@ -77,6 +77,13 @@ export class ApiService {
     );
   }
 
+  payReservation(id: string): Observable<{ reservation: Reservation; message: string }> {
+    return this.http.post<{ reservation: Reservation; message: string }>(
+      `${this.baseUrl}/reservations/${id}/pay`,
+      {},
+    );
+  }
+
   register(payload: {
     firstName: string;
     lastName: string;
@@ -93,6 +100,10 @@ export class ApiService {
 
   getMe(): Observable<AuthUser> {
     return this.http.get<AuthUser>(`${this.baseUrl}/auth/me`);
+  }
+
+  updateMe(payload: { firstName?: string; lastName?: string; phone?: string }): Observable<AuthUser> {
+    return this.http.patch<AuthUser>(`${this.baseUrl}/auth/me`, payload);
   }
 
 }

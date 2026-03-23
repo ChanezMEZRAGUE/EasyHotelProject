@@ -1,8 +1,8 @@
-﻿import { Injectable, UnauthorizedException, ConflictException } from '@nestjs/common';
+import { BadRequestException, ConflictException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { PrismaService } from '../../prisma/prisma.service';
-import { LoginDto, RegisterDto } from './auth.dto';
 import * as bcrypt from 'bcryptjs';
+import { PrismaService } from '../../prisma/prisma.service';
+import { LoginDto, RegisterDto, UpdateMeDto } from './auth.dto';
 
 @Injectable()
 export class AuthService {
@@ -16,7 +16,7 @@ export class AuthService {
       where: { email: dto.email.toLowerCase() },
     });
     if (existing) {
-      throw new ConflictException('Email deja utilise');
+      throw new ConflictException('Email déjà utilisé');
     }
 
     const passwordHash = await bcrypt.hash(dto.password, 10);
@@ -53,6 +53,36 @@ export class AuthService {
   async getMe(userId: string) {
     return this.prisma.user.findUnique({
       where: { id: userId },
+      select: {
+        id: true,
+        email: true,
+        firstName: true,
+        lastName: true,
+        phone: true,
+        createdAt: true,
+      },
+    });
+  }
+
+  async updateMe(userId: string, dto: UpdateMeDto) {
+    const firstName = dto.firstName?.trim();
+    const lastName = dto.lastName?.trim();
+    const phone = dto.phone?.trim() ?? '';
+
+    if (firstName !== undefined && firstName.length === 0) {
+      throw new BadRequestException('Le prénom ne peut pas être vide');
+    }
+    if (lastName !== undefined && lastName.length === 0) {
+      throw new BadRequestException('Le nom ne peut pas être vide');
+    }
+
+    return this.prisma.user.update({
+      where: { id: userId },
+      data: {
+        ...(firstName !== undefined ? { firstName } : {}),
+        ...(lastName !== undefined ? { lastName } : {}),
+        phone: phone.length > 0 ? phone : null,
+      },
       select: {
         id: true,
         email: true,

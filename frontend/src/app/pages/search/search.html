@@ -2,7 +2,7 @@
   <div class="hero-overlay"></div>
   <div class="hero-content">
     
-    <h1>Votre prochain voyage commence ici</h1>
+    <h1>{{ 'search.heroTitle' | tr }}</h1>
   </div>
 
   <mat-card class="search-card">
@@ -10,19 +10,19 @@
       <div class="search-grid">
         <mat-form-field appearance="outline" class="search-field">
           <mat-icon matPrefix>location_on</mat-icon>
-          <mat-label>Où allez-vous ?</mat-label>
+          <mat-label>{{ 'search.where' | tr }}</mat-label>
           <mat-select formControlName="regionId">
-            <mat-option *ngIf="loadingRegions" disabled>Chargement des régions...</mat-option>
+            <mat-option *ngIf="loadingRegions" disabled>{{ 'search.loadingRegions' | tr }}</mat-option>
             <mat-option *ngFor="let region of regions" [value]="region.id">{{ region.name }}</mat-option>
           </mat-select>
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="search-field date-range">
           <mat-icon matPrefix>date_range</mat-icon>
-          <mat-label>Dates</mat-label>
+          <mat-label>{{ 'search.dates' | tr }}</mat-label>
           <mat-date-range-input [rangePicker]="picker">
-            <input matStartDate formControlName="checkIn" placeholder="Arrivée">
-            <input matEndDate formControlName="checkOut" placeholder="Départ">
+            <input matStartDate formControlName="checkIn" [placeholder]="'search.arrival' | tr">
+            <input matEndDate formControlName="checkOut" [placeholder]="'search.departure' | tr">
           </mat-date-range-input>
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-date-range-picker #picker></mat-date-range-picker>
@@ -30,46 +30,47 @@
 
         <mat-form-field appearance="outline" class="search-field">
           <mat-icon matPrefix>group</mat-icon>
-          <mat-label>Voyageurs</mat-label>
+          <mat-label>{{ 'search.guests' | tr }}</mat-label>
           <input matInput type="number" min="1" max="8" formControlName="guests">
         </mat-form-field>
 
-        <button mat-flat-button color="primary" class="search-button" type="submit">Rechercher</button>
+        <button mat-flat-button color="primary" class="search-button" type="submit">{{ 'search.cta' | tr }}</button>
       </div>
 
       <div class="search-footer">
-        <mat-checkbox formControlName="business">Je voyage pour affaires</mat-checkbox>
-        <button mat-stroked-button type="button" routerLink="/results">Voir un exemple</button>
+        <mat-checkbox formControlName="business">{{ 'search.business' | tr }}</mat-checkbox>
+        <button mat-stroked-button type="button" routerLink="/results">{{ 'search.example' | tr }}</button>
       </div>
     </form>
+    <p class="section-subtitle" *ngIf="searchError">{{ searchError | tr }}</p>
   </mat-card>
 </section>
 
 <section class="page">
   <section class="feature-grid">
     <mat-card class="feature-card">
-      <mat-card-title>Disponibilités fiables</mat-card-title>
+      <mat-card-title>{{ 'search.reliable' | tr }}</mat-card-title>
       <mat-card-content>
-        <p>Vérification en temps réel sur les chambres et politiques de paiement.</p>
+        <p>{{ 'search.reliableDesc' | tr }}</p>
       </mat-card-content>
     </mat-card>
     <mat-card class="feature-card">
-      <mat-card-title>Paiements flexibles</mat-card-title>
+      <mat-card-title>{{ 'search.flexible' | tr }}</mat-card-title>
       <mat-card-content>
-        <p>Paiement immédiat, différé ou sur place selon les politiques de l'hôtel.</p>
+        <p>{{ 'search.flexibleDesc' | tr }}</p>
       </mat-card-content>
     </mat-card>
     <mat-card class="feature-card">
-      <mat-card-title>Gestion simplifiée</mat-card-title>
+      <mat-card-title>{{ 'search.simple' | tr }}</mat-card-title>
       <mat-card-content>
-        <p>Suivez, modifiez ou annulez vos réservations en un clic.</p>
+        <p>{{ 'search.simpleDesc' | tr }}</p>
       </mat-card-content>
     </mat-card>
   </section>
 
   <div>
-    <h2 class="page-title">Découvrez d'autres hôtels</h2>
-    <p class="section-subtitle">Sélection de villes populaires et offres en avant-première.</p>
+    <h2 class="page-title">{{ 'search.discover' | tr }}</h2>
+    <p class="section-subtitle">{{ 'search.discoverDesc' | tr }}</p>
   </div>
 
   <section class="section-block region-grid">
@@ -78,7 +79,7 @@
       <div class="region-body">
         <h3>Paris</h3>
         <p>Île-de-France</p>
-        <span>Dès 140 EUR / nuit</span>
+        <span>{{ 'search.fromPrice' | tr }} 140 EUR {{ 'search.perNight' | tr }}</span>
       </div>
     </mat-card>
     <mat-card class="region-card lyon">
@@ -86,7 +87,7 @@
       <div class="region-body">
         <h3>Lyon</h3>
         <p>Auvergne-Rhône-Alpes</p>
-        <span>Dès 120 EUR / nuit</span>
+        <span>{{ 'search.fromPrice' | tr }} 120 EUR {{ 'search.perNight' | tr }}</span>
       </div>
     </mat-card>
     <mat-card class="region-card marseille">
@@ -94,7 +95,7 @@
       <div class="region-body">
         <h3>Marseille</h3>
         <p>Provence-Alpes-Côte d'Azur</p>
-        <span>Dès 110 EUR / nuit</span>
+        <span>{{ 'search.fromPrice' | tr }} 110 EUR {{ 'search.perNight' | tr }}</span>
       </div>
     </mat-card>
     <mat-card class="region-card bordeaux">
@@ -102,7 +103,7 @@
       <div class="region-body">
         <h3>Bordeaux</h3>
         <p>Nouvelle-Aquitaine</p>
-        <span>Dès 125 EUR / nuit</span>
+        <span>{{ 'search.fromPrice' | tr }} 125 EUR {{ 'search.perNight' | tr }}</span>
       </div>
     </mat-card>
     <mat-card class="region-card nantes">
@@ -110,7 +111,7 @@
       <div class="region-body">
         <h3>Nantes</h3>
         <p>Pays de la Loire</p>
-        <span>Dès 115 EUR / nuit</span>
+        <span>{{ 'search.fromPrice' | tr }} 115 EUR {{ 'search.perNight' | tr }}</span>
       </div>
     </mat-card>
     <mat-card class="region-card strasbourg">
@@ -118,64 +119,64 @@
       <div class="region-body">
         <h3>Strasbourg</h3>
         <p>Grand Est</p>
-        <span>Dès 130 EUR / nuit</span>
+        <span>{{ 'search.fromPrice' | tr }} 130 EUR {{ 'search.perNight' | tr }}</span>
       </div>
     </mat-card>
   </section>
 
   <section class="section-block">
     <div class="section-header">
-      <h2 class="page-title">Offres du moment</h2>
-      <p class="section-subtitle">Des séjours sélectionnés avec des avantages exclusifs.</p>
+      <h2 class="page-title">{{ 'search.offers' | tr }}</h2>
+      <p class="section-subtitle">{{ 'search.offersDesc' | tr }}</p>
     </div>
     <div class="offer-grid">
       <mat-card class="offer-card">
-        <div class="offer-badge">-15%</div>
-        <h3>Azur Bay Resort</h3>
-        <p>Nice · Vue mer · Petit-déjeuner inclus</p>
-        <span>À partir de 200 EUR / nuit</span>
+        <div class="offer-badge">{{ 'search.offerBadgeDiscount' | tr }}</div>
+        <h3>{{ 'search.offer1Title' | tr }}</h3>
+        <p>{{ 'search.offer1Desc' | tr }}</p>
+        <span>{{ 'search.fromPrice' | tr }} 200 EUR {{ 'search.perNight' | tr }}</span>
       </mat-card>
       <mat-card class="offer-card">
-        <div class="offer-badge">Annulation gratuite</div>
-        <h3>Atlas Riverside</h3>
-        <p>Lyon · Centre-ville · Spa</p>
-        <span>À partir de 128 EUR / nuit</span>
+        <div class="offer-badge">{{ 'search.offerBadgeFreeCancel' | tr }}</div>
+        <h3>{{ 'search.offer2Title' | tr }}</h3>
+        <p>{{ 'search.offer2Desc' | tr }}</p>
+        <span>{{ 'search.fromPrice' | tr }} 128 EUR {{ 'search.perNight' | tr }}</span>
       </mat-card>
       <mat-card class="offer-card">
-        <div class="offer-badge">Payez sur place</div>
-        <h3>Champs Lumière</h3>
-        <p>Paris · Premium · 4 étoiles</p>
-        <span>À partir de 155 EUR / nuit</span>
+        <div class="offer-badge">{{ 'search.offerBadgePayOnSite' | tr }}</div>
+        <h3>{{ 'search.offer3Title' | tr }}</h3>
+        <p>{{ 'search.offer3Desc' | tr }}</p>
+        <span>{{ 'search.fromPrice' | tr }} 155 EUR {{ 'search.perNight' | tr }}</span>
       </mat-card>
     </div>
   </section>
 
   <section class="section-block">
     <div class="section-header">
-      <h2 class="page-title">Avis voyageurs</h2>
-      <p class="section-subtitle">Ils ont réservé avec EasyHoteling.</p>
+      <h2 class="page-title">{{ 'search.reviews' | tr }}</h2>
+      <p class="section-subtitle">{{ 'search.reviewsDesc' | tr }}</p>
     </div>
     <div class="testimonial-grid">
       <mat-card class="testimonial-card">
-        <p>“Réservation rapide et claire, j’ai trouvé mon hôtel en 2 minutes.”</p>
-        <span>Sarah · Paris</span>
+        <p>{{ 'search.review1' | tr }}</p>
+        <span>{{ 'search.review1Author' | tr }}</span>
       </mat-card>
       <mat-card class="testimonial-card">
-        <p>“Interface moderne et paiement flexible, parfait pour mes déplacements.”</p>
-        <span>Amine · Lille</span>
+        <p>{{ 'search.review2' | tr }}</p>
+        <span>{{ 'search.review2Author' | tr }}</span>
       </mat-card>
       <mat-card class="testimonial-card">
-        <p>“Les détails des chambres sont précis, la réservation est fluide.”</p>
-        <span>Camille · Marseille</span>
+        <p>{{ 'search.review3' | tr }}</p>
+        <span>{{ 'search.review3Author' | tr }}</span>
       </mat-card>
     </div>
   </section>
 
   <section class="cta-banner">
     <div>
-      <h2>Prêt à réserver votre prochain séjour ?</h2>
-      <p>Comparez les offres et bloquez votre chambre en quelques clics.</p>
+      <h2>{{ 'search.readyTitle' | tr }}</h2>
+      <p>{{ 'search.readyDesc' | tr }}</p>
     </div>
-    <a mat-flat-button color="primary" href="#search-top">Rechercher un hôtel</a>
+    <a mat-flat-button color="primary" href="#search-top">{{ 'search.readyButton' | tr }}</a>
   </section>
 </section>

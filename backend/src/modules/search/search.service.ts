@@ -12,7 +12,7 @@ export class SearchService {
     const checkOut = new Date(query.checkOut);
 
     if (checkIn >= checkOut) {
-      throw new BadRequestException('checkIn must be before checkOut');
+      throw new BadRequestException("La date d'arrivée doit être avant la date de départ");
     }
 
     const hotels = await this.prisma.hotel.findMany({

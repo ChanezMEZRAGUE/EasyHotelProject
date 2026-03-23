@@ -1,12 +1,12 @@
 <section class="page">
   <div>
-    <h1 class="page-title">Hotels disponibles</h1>
-    <p class="section-subtitle">Prix moyens par nuit et disponibilites par type de chambre.</p>
+    <h1 class="page-title">{{ 'results.title' | tr }}</h1>
+    <p class="section-subtitle">{{ 'results.subtitle' | tr }}</p>
   </div>
-  <p *ngIf="loading" class="section-subtitle">Chargement des hotels...</p>
-  <p *ngIf="errorMessage" class="section-subtitle">{{ errorMessage }}</p>
+  <p *ngIf="loading" class="section-subtitle">{{ 'results.loading' | tr }}</p>
+  <p *ngIf="errorMessage" class="section-subtitle">{{ errorMessage || ('results.error' | tr) }}</p>
   <p *ngIf="!loading && !errorMessage && hotels.length === 0" class="section-subtitle">
-    Aucun hotel trouve.
+    {{ 'results.empty' | tr }}
   </p>
 
   <div class="results-grid">
@@ -18,14 +18,14 @@
       <mat-card-content>
         <h3 class="card-title">{{ hotel.name }}</h3>
         <p class="card-subtitle">{{ hotel.address }}</p>
-        <p class="price">A partir de {{ hotel.pricePerNight }} EUR / nuit</p>
+        <p class="price">{{ 'results.from' | tr }} {{ hotel.pricePerNight }} EUR {{ 'results.perNight' | tr }}</p>
         <mat-chip-listbox>
           <mat-chip *ngFor="let tag of hotel.tags">{{ tag }}</mat-chip>
         </mat-chip-listbox>
       </mat-card-content>
       <mat-card-actions class="actions-row">
-        <a mat-stroked-button routerLink="/hotel/{{ hotel.id }}">Voir details</a>
-        <a mat-flat-button color="primary" routerLink="/hotel/{{ hotel.id }}">Reserver</a>
+        <a mat-stroked-button [routerLink]="['/hotel', hotel.id]" [queryParams]="hotelQueryParams">{{ 'results.details' | tr }}</a>
+        <a mat-flat-button color="primary" [routerLink]="['/hotel', hotel.id]" [queryParams]="hotelQueryParams">{{ 'results.book' | tr }}</a>
       </mat-card-actions>
     </mat-card>
   </div>

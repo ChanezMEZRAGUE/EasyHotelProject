@@ -132,6 +132,28 @@
   grid-column: 1 / -1;
 }
 
+.cancel-policy-note {
+  grid-column: 1 / -1;
+  border-radius: 12px;
+  padding: 0.7rem 0.9rem;
+  background: rgba(26, 143, 143, 0.08);
+  border: 1px solid rgba(26, 143, 143, 0.2);
+}
+
+.cancel-policy-title {
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #1a2b5c;
+  letter-spacing: 0.04rem;
+}
+
+.cancel-policy-text {
+  margin-top: 0.15rem;
+  font-size: 0.92rem;
+  color: #3d4a5a;
+}
+
 @media (max-width: 900px) {
   .hotel-hero {
     padding: 2.5rem 1.5rem 2rem;

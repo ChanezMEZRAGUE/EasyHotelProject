@@ -5,10 +5,12 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { MATERIAL_MODULES } from '../../shared/material';
 import { ApiService } from '../../core/api.service';
 import { AuthService } from '../../core/auth.service';
+import { TrPipe } from '../../shared/tr.pipe';
+import { I18nService } from '../../core/i18n.service';
 
 @Component({
   selector: 'app-register',
-  imports: [CommonModule, ReactiveFormsModule, RouterLink, ...MATERIAL_MODULES],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink, TrPipe, ...MATERIAL_MODULES],
   templateUrl: './register.html',
   styleUrl: './register.scss'
 })
@@ -19,6 +21,7 @@ export class Register {
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
   private readonly cdr = inject(ChangeDetectorRef);
+  private readonly i18n = inject(I18nService);
 
   loading = false;
   errorMessage = '';
@@ -61,11 +64,11 @@ export class Register {
       error: (err) => {
         this.loading = false;
         if (err?.status === 409) {
-          this.errorMessage = 'Ce compte existe déjà. Essayez de vous connecter.';
+          this.errorMessage = this.i18n.t('register.accountExists');
           this.cdr.detectChanges();
           return;
         }
-        this.errorMessage = 'Impossible de créer le compte. Vérifie tes informations.';
+        this.errorMessage = this.i18n.translateApiMessage(err?.error?.message, 'register.errorDefault');
         this.cdr.detectChanges();
       }
     });

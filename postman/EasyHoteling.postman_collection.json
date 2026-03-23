@@ -1,0 +1,443 @@
+{
+  "info": {
+    "_postman_id": "8d5b5037-b97c-4bf2-80d8-b2d247d2c8f8",
+    "name": "EasyHoteling API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "easyhoteling-tests"
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "function fmtDate(d) {",
+          "  const y = d.getFullYear();",
+          "  const m = String(d.getMonth() + 1).padStart(2, '0');",
+          "  const day = String(d.getDate()).padStart(2, '0');",
+          "  return `${y}-${m}-${day}`;",
+          "}",
+          "",
+          "if (!pm.environment.get('testEmail')) {",
+          "  pm.environment.set('testEmail', `qa_${Date.now()}@easyhoteling.test`);",
+          "}",
+          "",
+          "if (!pm.environment.get('checkIn') || !pm.environment.get('checkOut')) {",
+          "  const checkIn = new Date();",
+          "  checkIn.setDate(checkIn.getDate() + 35);",
+          "  const checkOut = new Date(checkIn);",
+          "  checkOut.setDate(checkOut.getDate() + 3);",
+          "  pm.environment.set('checkIn', fmtDate(checkIn));",
+          "  pm.environment.set('checkOut', fmtDate(checkOut));",
+          "}"
+        ]
+      }
+    }
+  ],
+  "item": [
+    {
+      "name": "1 - Regions (public)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/regions",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "regions"
+          ]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status 201 or 200', function () {",
+              "  pm.expect([200, 201]).to.include(pm.response.code);",
+              "});",
+              "",
+              "const body = pm.response.json();",
+              "pm.test('Regions array returned', function () {",
+              "  pm.expect(Array.isArray(body)).to.eql(true);",
+              "  pm.expect(body.length).to.be.above(0);",
+              "});",
+              "",
+              "pm.environment.set('regionId', body[0].id);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "2 - Search availability (public)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/search/availability?regionId={{regionId}}&checkIn={{checkIn}}&checkOut={{checkOut}}&guests=2",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "search",
+            "availability"
+          ],
+          "query": [
+            {
+              "key": "regionId",
+              "value": "{{regionId}}"
+            },
+            {
+              "key": "checkIn",
+              "value": "{{checkIn}}"
+            },
+            {
+              "key": "checkOut",
+              "value": "{{checkOut}}"
+            },
+            {
+              "key": "guests",
+              "value": "2"
+            }
+          ]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status 201 or 200', function () {",
+              "  pm.expect([200, 201]).to.include(pm.response.code);",
+              "});",
+              "",
+              "const body = pm.response.json();",
+              "pm.test('Availability array returned', function () {",
+              "  pm.expect(Array.isArray(body)).to.eql(true);",
+              "  pm.expect(body.length).to.be.above(0);",
+              "});",
+              "",
+              "const hotel = body[0];",
+              "const room = hotel.roomTypes[0];",
+              "pm.environment.set('hotelId', hotel.id);",
+              "pm.environment.set('roomTypeId', room.id);",
+              "",
+              "pm.test('Hotel and roomType selected for next requests', function () {",
+              "  pm.expect(pm.environment.get('hotelId')).to.be.a('string');",
+              "  pm.expect(pm.environment.get('roomTypeId')).to.be.a('string');",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "3 - Register",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"{{testEmail}}\",\n  \"password\": \"{{testPassword}}\",\n  \"firstName\": \"Postman\",\n  \"lastName\": \"Tester\",\n  \"phone\": \"0600000000\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/auth/register",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "auth",
+            "register"
+          ]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status 201 or 200', function () {",
+              "  pm.expect([200, 201]).to.include(pm.response.code);",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "4 - Login",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"{{testEmail}}\",\n  \"password\": \"{{testPassword}}\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/auth/login",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "auth",
+            "login"
+          ]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status 201 or 200', function () {",
+              "  pm.expect([200, 201]).to.include(pm.response.code);",
+              "});",
+              "",
+              "const body = pm.response.json();",
+              "pm.test('Access token exists', function () {",
+              "  pm.expect(body.accessToken).to.be.a('string');",
+              "});",
+              "pm.environment.set('token', body.accessToken);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "5 - Create reservation (PAY_NOW)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"hotelId\": \"{{hotelId}}\",\n  \"roomTypeId\": \"{{roomTypeId}}\",\n  \"checkIn\": \"{{checkIn}}\",\n  \"checkOut\": \"{{checkOut}}\",\n  \"guests\": 2,\n  \"paymentMode\": \"PAY_NOW\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/reservations",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "reservations"
+          ]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status 201 or 200', function () {",
+              "  pm.expect([200, 201]).to.include(pm.response.code);",
+              "});",
+              "",
+              "const body = pm.response.json();",
+              "pm.test('Reservation id returned', function () {",
+              "  pm.expect(body.id).to.be.a('string');",
+              "});",
+              "pm.environment.set('reservationId', body.id);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "6 - List my reservations",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/reservations",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "reservations"
+          ]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status 200', function () {",
+              "  pm.response.to.have.status(200);",
+              "});",
+              "",
+              "const body = pm.response.json();",
+              "pm.test('Created reservation is listed', function () {",
+              "  const id = pm.environment.get('reservationId');",
+              "  const found = body.some((r) => r.id === id);",
+              "  pm.expect(found).to.eql(true);",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "7 - Update reservation (guests)",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"guests\": 1\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/reservations/{{reservationId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "reservations",
+            "{{reservationId}}"
+          ]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status 200', function () {",
+              "  pm.response.to.have.status(200);",
+              "});",
+              "",
+              "const body = pm.response.json();",
+              "pm.test('Guests updated', function () {",
+              "  pm.expect(body.guests).to.eql(1);",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "8 - Pay reservation",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/reservations/{{reservationId}}/pay",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "reservations",
+            "{{reservationId}}",
+            "pay"
+          ]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status 200', function () {",
+              "  pm.response.to.have.status(200);",
+              "});",
+              "",
+              "const body = pm.response.json();",
+              "pm.test('Payment marked paid', function () {",
+              "  pm.expect(body.reservation.paymentStatus).to.eql('PAID');",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "9 - Cancel reservation",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/reservations/{{reservationId}}/cancel",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "reservations",
+            "{{reservationId}}",
+            "cancel"
+          ]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status 200', function () {",
+              "  pm.response.to.have.status(200);",
+              "});",
+              "",
+              "const body = pm.response.json();",
+              "pm.test('Reservation is cancelled', function () {",
+              "  pm.expect(body.reservation.status).to.eql('CANCELLED');",
+              "});"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

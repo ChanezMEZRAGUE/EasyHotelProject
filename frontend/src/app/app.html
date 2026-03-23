@@ -6,7 +6,7 @@
     <span class="spacer"></span>
     <div class="lang-switch">
       <mat-menu #langMenu="matMenu" xPosition="after">
-        <button mat-menu-item *ngFor="let lang of languages" (click)="selectedLang = lang.code">
+        <button mat-menu-item *ngFor="let lang of languages" (click)="setLanguage(lang.code)">
           <span class="lang-text">{{ lang.label }}</span>
           <img class="flag-img" [src]="lang.flagUrl" [alt]="lang.code + ' flag'">
         </button>
@@ -18,13 +18,13 @@
       </button>
     </div>
     <nav class="nav-links">
-      <a mat-button routerLink="/search">Rechercher</a>
-      <a mat-button routerLink="/results">Disponibilites</a>
-      <a mat-button routerLink="/my-reservations">Mes reservations</a>
+      <a mat-button routerLink="/search">{{ 'nav.search' | tr }}</a>
+      <a mat-button routerLink="/results">{{ 'nav.availability' | tr }}</a>
+      <a mat-button routerLink="/my-reservations">{{ 'nav.myReservations' | tr }}</a>
     </nav>
     <div class="auth-links" *ngIf="!auth.isAuthenticated()">
-      <a mat-stroked-button routerLink="/login">Se connecter</a>
-      <a mat-flat-button color="primary" routerLink="/register">Creer un compte</a>
+      <a mat-stroked-button routerLink="/login">{{ 'nav.login' | tr }}</a>
+      <a mat-flat-button color="primary" routerLink="/register">{{ 'nav.register' | tr }}</a>
     </div>
     <div class="auth-links" *ngIf="auth.isAuthenticated()">
       <mat-menu #accountMenu="matMenu" xPosition="after">
@@ -33,10 +33,11 @@
           <div class="account-email">{{ currentUser.email }}</div>
           <div class="account-phone" *ngIf="currentUser.phone">{{ currentUser.phone }}</div>
         </div>
-        <button mat-menu-item routerLink="/my-reservations">Mes reservations</button>
-        <button mat-menu-item (click)="logout()">Se deconnecter</button>
+        <button mat-menu-item routerLink="/account">{{ 'nav.myAccount' | tr }}</button>
+        <button mat-menu-item routerLink="/my-reservations">{{ 'nav.myReservations' | tr }}</button>
+        <button mat-menu-item (click)="logout()">{{ 'nav.logout' | tr }}</button>
       </mat-menu>
-      <button mat-icon-button class="account-button" [matMenuTriggerFor]="accountMenu" aria-label="Mon compte">
+      <button mat-icon-button class="account-button" [matMenuTriggerFor]="accountMenu" [attr.aria-label]="'nav.myAccount' | tr">
         <mat-icon>account_circle</mat-icon>
       </button>
     </div>
@@ -50,7 +51,7 @@
 <footer class="app-footer">
   <div>
     <strong>EasyHoteling</strong>
-    <span>Reservation hotel - Logiciels surs</span>
+    <span>{{ 'footer.subtitle' | tr }}</span>
   </div>
-  <span>Version demo - paiement visuel</span>
+  <span>{{ 'footer.version' | tr }}</span>
 </footer>

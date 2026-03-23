@@ -7,24 +7,24 @@
 </section>
 
 <section class="page hotel-page">
-  <p *ngIf="loading" class="section-subtitle">Chargement des details...</p>
+  <p *ngIf="loading" class="section-subtitle">{{ 'hotel.loading' | tr }}</p>
   <p *ngIf="errorMessage" class="section-subtitle">{{ errorMessage }}</p>
 
   <div class="detail-grid" *ngIf="!loading && !errorMessage">
     <mat-card class="room-card">
       <mat-card-content>
         <div class="card-title-row reservation-title">
-          <mat-card-title>Chambres disponibles</mat-card-title>
+          <mat-card-title>{{ 'hotel.rooms' | tr }}</mat-card-title>
         </div>
         <div class="room-list">
           <div class="room-item" *ngFor="let room of rooms">
             <div class="room-thumb"></div>
             <div class="room-info">
               <div class="room-name">{{ room.name }}</div>
-              <div class="room-meta">Capacité {{ room.capacity }} pers. | {{ room.available }} restantes</div>
-              <div class="room-badge">Annulation gratuite</div>
+              <div class="room-meta">{{ 'hotel.capacity' | tr }} {{ room.capacity }} pers. | {{ room.available }} {{ 'hotel.left' | tr }}</div>
+              <div class="room-badge">{{ roomCancellationBadge() }}</div>
             </div>
-            <div class="room-price">{{ room.price }} EUR / nuit</div>
+            <div class="room-price">{{ room.price }} EUR {{ 'results.perNight' | tr }}</div>
           </div>
         </div>
       </mat-card-content>
@@ -33,11 +33,11 @@
     <mat-card class="reservation-card">
       <mat-card-content>
         <div class="card-title-row reservation-title">
-          <mat-card-title>Réserver</mat-card-title>
+          <mat-card-title>{{ 'hotel.bookTitle' | tr }}</mat-card-title>
         </div>
         <form [formGroup]="form" (ngSubmit)="reserve()" class="reservation-form">
           <mat-form-field appearance="outline">
-            <mat-label>Type de chambre</mat-label>
+            <mat-label>{{ 'hotel.roomType' | tr }}</mat-label>
             <mat-select formControlName="roomTypeId">
               <mat-option *ngFor="let room of rooms" [value]="room.id">
                 {{ room.name }} - {{ room.price }} EUR
@@ -46,22 +46,22 @@
           </mat-form-field>
 
           <mat-form-field appearance="outline">
-            <mat-label>Date d'arrivée</mat-label>
+            <mat-label>{{ 'hotel.arrival' | tr }}</mat-label>
             <input matInput type="date" formControlName="checkIn">
           </mat-form-field>
 
           <mat-form-field appearance="outline">
-            <mat-label>Date de départ</mat-label>
+            <mat-label>{{ 'hotel.departure' | tr }}</mat-label>
             <input matInput type="date" formControlName="checkOut">
           </mat-form-field>
 
           <mat-form-field appearance="outline">
-            <mat-label>Voyageurs</mat-label>
+            <mat-label>{{ 'hotel.guests' | tr }}</mat-label>
             <input matInput type="number" min="1" max="6" formControlName="guests">
           </mat-form-field>
 
           <mat-form-field appearance="outline">
-            <mat-label>Mode de paiement</mat-label>
+            <mat-label>{{ 'hotel.payment' | tr }}</mat-label>
             <mat-select formControlName="paymentMode">
               <mat-option *ngFor="let option of paymentOptions" [value]="option.value">
                 {{ option.label }}
@@ -69,11 +69,16 @@
             </mat-select>
           </mat-form-field>
 
+          <div class="cancel-policy-note">
+            <div class="cancel-policy-title">{{ 'hotel.cancelPolicyTitle' | tr }}</div>
+            <div class="cancel-policy-text">{{ cancellationPolicyText() }}</div>
+          </div>
+
           <div class="actions-row">
             <button mat-flat-button color="primary" type="submit" [disabled]="reserving">
-              {{ reserving ? 'Confirmation...' : 'Confirmer la réservation' }}
+              {{ reserving ? ('hotel.confirming' | tr) : ('hotel.confirm' | tr) }}
             </button>
-            <a mat-stroked-button routerLink="/results">Retour</a>
+            <a mat-stroked-button routerLink="/results">{{ 'hotel.back' | tr }}</a>
           </div>
 
           <p class="section-subtitle" *ngIf="reserveSuccess">{{ reserveSuccess }}</p>

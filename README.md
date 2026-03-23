@@ -7,6 +7,7 @@ Application web de reservation d'hotels developpee completement en TypeScript:
 
 ## Fonctionnalites implementees
 - Authentification client: `register`, `login`, `me` (JWT)
+- Mise a jour profil client: `PATCH /auth/me` (prenom, nom, telephone)
 - Chargement des regions depuis la base
 - Recherche de disponibilite avec logique de chevauchement:
   - endpoint `GET /search/availability`
@@ -17,11 +18,13 @@ Application web de reservation d'hotels developpee completement en TypeScript:
 - Liste des reservations utilisateur (`GET /reservations`)
 - Modification de reservation (`PATCH /reservations/:id`)
 - Annulation de reservation (`POST /reservations/:id/cancel`)
+- Paiement visuel de reservation (`POST /reservations/:id/pay`)
+- UI paiement simule (popup carte) sur `Mes reservations`
+- Politique d'annulation affichee sur la page detail hotel
+- Internationalisation FR/EN (navigation, ecrans metier, messages API principaux)
 - Swagger disponible en local
 
 ## Fonctionnalites non finalisees
-- Paiement visuel via endpoint dedie (`POST /reservations/:id/pay`)
-- Suite de tests automatisee complete (unitaires + Postman export final)
 - Deploiement cloud final documente (URLs de production)
 
 ## Stack technique
@@ -73,7 +76,7 @@ npm start
 - Frontend: `http://localhost:4200`
 - Backend: `http://localhost:3000`
 - Swagger: `http://localhost:3000/api/docs`
-- Prisma Studio: `http://localhost:5555` (apres `npx prisma studio` dans `backend`)
+- Prisma Studio: URL affichee par la commande `npx prisma studio` (en general `http://localhost:5555` ou `http://localhost:51212`)
 
 ## Variables d'environnement backend
 Fichier `backend/.env`:
@@ -90,6 +93,18 @@ PORT=3000
 ```bash
 cd backend
 npm test
+```
+
+- Couverture backend:
+```bash
+cd backend
+npm run test:cov
+```
+
+- API tests Postman (Newman):
+```bash
+cd postman
+newman run EasyHoteling.postman_collection.json -e EasyHoteling.postman_environment.json
 ```
 
 - Build backend:
